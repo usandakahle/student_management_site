@@ -1,0 +1,94 @@
+
+
+{% extends "base.html" %}
+
+{%block content%}
+<link rel="stylesheet" href="static/dashstyle.css">
+<section class="h-100 h-custom" style="background-color: #8fc4b7;" >
+    
+    <div class="container py-5 h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col-lg-8 col-xl-6">
+            <div class="card rounded-3">
+            <img src=" https://newcastle.gov.za/wp-content/uploads/2016/12/header.png"
+            
+                class="w-100" style="border-top-left-radius: .3rem; border-top-right-radius: .3rem;"
+                alt="Sample photo">
+            <div class="card-body p-4 p-md-5">
+                <h3 class="mb-4 pb-2 pb-md-0 mb-md-5 px-md-4">Registration Info</h3>
+    
+                <form class="px-md-4" method = "POST" action = "{% url 'register' %}">
+                 {% csrf_token %}
+                <div data-mdb-input-init class="form-outline mb-3">
+                    <input type="text" id="first_name" class="form-control" placeholder = "First name" name = "first_name"/>
+                  
+                </div>
+                 
+                <div data-mdb-input-init class="form-outline mb-3">
+                    <input type="text" id="last_name" class="form-control" placeholder = "Last name" name = "last_name" />
+                  
+                </div>
+
+                <div data-mdb-input-init class="form-outline mb-3">
+                    <input type="email" class="form-control" id="email" placeholder = "Email" name = "email" />
+                   <!-- <label for="form-label" class="form-label">Email</label>-->
+                </div>
+
+                <div data-mdb-input-init class="form-outline mb-3">
+                    <input type="password" class="form-control" id="password" placeholder = "Password" name = "password"/>
+                   <!-- <label for="form-label" class="form-label">Password</label> -->
+                </div>
+    
+               <!-- <div data-mdb-input-init class="form-outline mb-3">
+                    <input type = "date" class = "form-control" id = "reg_date" name ="reg_date">
+                    <label for = "form-label" class = "form-label">Registration Date</label>
+                </div>
+                 
+                    <div class="col-md-6 mb-4">
+    
+                    <select data-mdb-select-init>
+                        <option value="1" disabled>Unit</option>
+                        <option value="2">SCM</option>
+                        <option value="3">Asset</option>
+                        <option value="4">Budget</option>
+                    </select> 
+                    <div data-mdb-input-init class="form-outline mb-3" id="adminBlock" style="display: none;">
+                          <label for="unit_id">Units:</label><br>
+                            <select name = "unit_id" id = "unit_id"> 
+                                {% for unit in units %}
+                                   <option value = {%  unit.id %}>{{ unit.unit_name }}</option>
+                                {% endfor%}
+                            </select> 
+                        </div> 
+    
+                    </div>-->
+               <!-- </div> -->
+    
+               <!--- <div class="mb-4">
+    
+                    <select data-mdb-select-init>
+                    <option value="1" disabled>Class</option>
+                    <option value="2">Class 1</option>
+                    <option value="3">Class 2</option>
+                    <option value="4">Class 3</option>
+                    </select>
+    
+                </div> -->
+
+                
+                <div class=" submit">
+                <button type= "submit"   data-mdb-button-init data-mdb-ripple-init class="btn btn-success btn-lg mb-1">Submit</button> 
+                </div>
+    
+                </form>
+    
+            </div>
+            </div>
+        </div>
+        </div>
+    </div>
+  
+</section>
+
+{% endblock content%}
+   

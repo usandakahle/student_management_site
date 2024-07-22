@@ -1,0 +1,41 @@
+{% extends 'dashboard.html' %}
+
+{% block content %}
+
+<div class="content-wrapper">
+    <div class="row">
+          <div class="col-12 grid-margin stretch-card">
+              <div class="card">
+                  <div class="card-body">
+                  <h4 class="card-title">Make Submission</h4>
+                  <p class="card-description"> Make Submission for task: {{ task.task_id }} </p>
+                  <form name="submission" class="forms-sample" method="POST" href="{% url 'submission' %}" enctype="multipart/form-data" action="{% url 'submission' %}">
+                      {% csrf_token %}
+                      <div class="form-group">
+                        <input type="hidden" name = "task_id" value = "{{ task.task_id }}">
+                      </div>
+                      <div class="form-group">
+                      <h3>{{ task.name }}</h3>
+                      </div>
+                      <div class="form-group">
+                          <h6>Due: {{ task.due_date }}</h6>
+                      </div>
+                      
+
+                      <div class="form-group">
+                      <label for="comment">Comment</label>
+                      <textarea class="form-control" name= "comment" id="comment" rows="20" style="height: 150px;"></textarea>
+                      </div>
+    
+                    </div>
+                      
+                      <button type="submit" class="btn btn-primary me-2">Submit</button>
+                      <button class="btn btn-light">Cancel</button>
+                  </form>
+                  </div>
+              </div>
+          </div>
+          </div>
+          </div>
+          </div>
+{% endblock content %}

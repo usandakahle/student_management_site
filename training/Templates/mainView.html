@@ -1,0 +1,133 @@
+{% extends 'dashboard.html' %}
+{% block content %}
+<div class="tab-content tab-content-basic"> 
+    <ul>
+      {% if messages %}
+        <div class="alert alert-primary d-flex align-items-center" role="alert" id = "msg"> 
+          {% for message in messages %}
+          <h6> {{ message }} </h6>
+          {% endfor %}
+        </div>
+      {% endif %}
+    </ul>
+    <div class="tab-pane fade show active" id="overview" role="tabpanel" aria-labelledby="overview">
+     
+      <div class="row">
+        <div class="col-8 d-flex flex-column">
+        {% if tasks %}
+          {% for task in tasks %}
+            {% if task.status != "Complete" %}
+              <div class="row flex-grow mb-3">
+                <div class="col-12  grid-margin">
+                  <div class="card card-rounded border">
+                    <div class="card-body">
+                      <div class="d-sm-flex justify-content-between align-items-start">
+                        <div>
+                          <h4 class="card-title card-title-dash">{{ task.name }}</h4>
+                          <p class="card-subtitle card-subtitle-dash">{{ task.description }}</p>
+                          <div class="d-flex mt-2">
+                            <!-- date when the task was assigned-->
+                            <div class="ps-4 text-small me-3">Start: {{ task.start_date }}</div>
+                            <div class="ps-4 text-small me-3">Due: {{ task.due_date }}</div>
+                          </div>
+                        </div>
+                      </div>
+                      {% if task.status == "Assigned" %}  
+                       <div class="badge badge-pill badge-primary" style="position: absolute; top: 25px; right: 10px;">{{ task.status }}</div> 
+                      {% endif %}                                                    <!-- status of the task-->
+                      {% if task.status == "Open" %}  
+                       <div class="badge badge-pill badge-opacity-success" style="position: absolute; top: 25px; right: 10px;">{{ task.status }}</div>
+                        <a class="submission" href="{% url 'submission' %}">
+                          <form method="GET" action="{% url 'submission' %}">
+                            <input type = "hidden" name="task_id" id="task_id" value="{{ task.task_id }}">
+                            <button type="submit" class=" btn btn-primary me-2"style = "position: absolute; bottom: 5px; right: 1px; background-color: cornflowerblue;">Make Submission</button>
+                          </form>
+                        </a>
+                      {% endif %} 
+                      {% if task.status == "Closed" %}
+                       <div class="badge badge-pill badge-danger" style="position: absolute; top: 50px; right: 10px;">{{ task.status }}</div>
+                      {% endif %}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            {% endif %}     
+          {% endfor %}
+        {% else %}
+        <div class="col-8 d-flex flex-column">
+          <div class="row flex-grow">
+            <div class="col-12  grid-margin stretch-card"> 
+              <div class="card card-rounded border" >
+                <div class="card-body">
+                  <div class="d-sm-flex justify-content-between align-items-start">
+                    <div>
+                      <h4 class="card-title card-title-dash">No Tasks</h4>
+                    </div>
+                  </div>
+                </div>
+              </div>  
+            </div> 
+          </div>
+        </div>    
+        {% endif %}
+      </div>
+      <div class="col-lg-4 d-flex flex-column">
+        <div class="row flex-grow">
+          <div class="col-md-6 col-lg-12 grid-margin">
+            <div class="card bg-primary card-rounded">
+              <div class="card-body pb-0">
+                <h4 class="card-title card-title-dash text-white mb-4">Status Summary</h4>
+                <div class="row">
+                  <div class="col-sm-8">
+                    <p class="status-summary-ight-white mb-1"></p>
+                    <h2 class="text-info">day {{ days }}</h2>
+                  </div> 
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-12 d-flex flex-column">
+          <div class="row flex-grow">
+            <div class="col-md-6 col-lg-12 grid-margin stretch-card">
+              <div class="card card-rounded">
+                <div class="card-body card-rounded">
+                  <h4 class="card-title  card-title-dash">Complete Tasks</h4>
+                  {% for task in tasks %}
+                    {% if task.status == "Complete" %}
+                      <div class="list align-items-center border-bottom py-2">
+                        <div class="wrapper w-100">
+                          <p class="mb-2 fw-medium"> {{ task.name }}</p>
+                          <div class="d-flex justify-content-between align-items-center">
+                            <div class="d-flex align-items-center">
+                              <i class="mdi mdi-calendar text-muted me-1"></i>
+                              <p class="mb-0 text-small text-muted">{{ task.due_date }}</p>
+                            </div>
+                            <i class="mdi mdi-lock-outline text-muted me-1"></i>
+                            <p class="mb-0 text-small text-muted">Completed: {{ task.sub_date }}</p>
+                          </div>
+                        </div>
+                      </div>
+                    {% endif %}
+                  {% endfor %}
+                  <div class="list align-items-center pt-3">
+                    <div class="wrapper w-100">
+                      <p class="mb-0">
+                        <a href="#" class="fw-bold text-primary">Show all <i class="mdi mdi-arrow-right ms-2"></i></a>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+           
+      </div>
+    
+    </div>
+  </div>
+</div>
+
+
+{% endblock content%}

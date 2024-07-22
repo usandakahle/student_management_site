@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<main class="main">
+
+    <!-- Hero Section -->
+    <section id="hero" class="hero section">
+
+      <div class="container">
+        <div id = "msg"> 
+          {% for message in messages %}
+          <h3> {{ message }} </h3>
+          {% endfor %}
+        </div>
+        <div class="row gy-4">
+          <div class="col-lg-6 order-2 order-lg-1 d-flex flex-column justify-content-center">
+            <h1 data-aos="fade-up">Welcome to the Student Training management site</h1>
+            <p data-aos="fade-up" data-aos-delay="100">Your work, your way</p>
+            <div class="d-flex flex-column flex-md-row" >
+              <a href="{% url 'login' %}"  class="btn-get-started">Login <i class="bi bi-arrow-right"></i></a>
+              <a href="{% url 'register' %}" class="nav-link"><i class="bi bi-play-circle"></i><span>Sign Up</span></a>
+            </div>
+          </div>
+          <div class="col-lg-6 order-1 order-lg-2 hero-img" data-aos="zoom-out">
+            <img src="{% static 'images/Student girl studying at laptop.jpg' %}" class="img-fluid animated" alt="">
+          </div>
+        </div>
+      </div>
+     </section> 
+ 
+   </main> 
+{% endblock content %}

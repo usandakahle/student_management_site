@@ -1,0 +1,64 @@
+{% extends 'adminDash.html' %}
+
+{% block content %}
+
+    <div class="content-wrapper">
+      <div class="row">
+            <div class="col-12 grid-margin stretch-card">
+          
+                <div class="card">
+                    <div class="card-body">
+                    <h4 class="card-title">Create Task</h4>
+                    <p class="card-description"> Create Task</p>
+                    <form name="createTask" class="forms-sample" method="POST" action="{% url 'createTask' %}">
+                        {% csrf_token %}
+                        <div class="form-group">
+                        <label for="taskname">Task Name</label>
+                        <input type="text" name= "taskname" class="form-control" id="taskname" placeholder="Task Name">
+                        </div>
+                        <div class="form-group">
+                            <label for="start_date">Start Date</label>
+                            <input type="date" name="start_date" class="form-control" id="start_date" placeholder="datepicker">
+                        </div>
+                        <div class="form-group">
+                            <label for="due_date">Due Date</label>
+                            <input type="date" name="due_date" class="form-control" id="due_date" placeholder="datepicker">
+                        </div>
+                        <div class="form-group">
+                        <label for="description">Task Description</label>
+                        <textarea class="form-control" name= "description" id="description" rows="20" style="height: 150px;"></textarea>
+                        </div>
+
+                        <div class="form-group">
+                        <label>Upload task resources</label>
+                        <input type="file" name="file" class="file-upload-default">
+                        <div class="input-group col-xs-12">
+                            <input type="file" name = "file" class="form-control file-upload-info" placeholder="Upload File">
+                            <span class="input-group-append">
+                            <button class="file-upload-browse btn btn-primary" type="button">Upload</button>
+                            </span>
+                        </div>
+                      
+                        <div class="form-group" id="userBlock">
+                            <label for="user_id">Assign task to:</label><br>
+                              <select name = "user_id" id = "user_id"> 
+                                  {% for user in users %}
+                                   {%if user.user_type == "Student" %}
+                                     <option value = "{{ user.user_id }}">{{ user.user_id }}: {{ user.firstname}} {{ user.lastname}}</option>
+                                   {% endif %}  
+                                  {% endfor%}
+                              </select> 
+                          </div> 
+      
+                      </div>
+                        
+                        <button type="submit" class="btn btn-primary me-2">Submit</button>
+                        <button class="btn btn-light">Cancel</button>
+                    </form>
+                    </div>
+                </div>
+            </div>
+            </div>
+            </div>
+            </div>
+{% endblock content%}
